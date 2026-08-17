@@ -1,0 +1,165 @@
+Desafio1:Nivel3
+Projeto: Categorização Automática de Músicas
+A Playcatch é uma plataforma de streaming de música que busca oferecer uma experiência personalizada aos seus usuários, assim como o Spotify faz. 
+Para isso, a empresa quer aplicar técnicas de inteligência artificial e machine learning na criação de um sistema de recomendação capaz de sugerir 
+músicas com base no histórico de reprodução de cada usuário.
+Neste desafio prático, você será responsável por construir uma solução completa de IA, desde a análise exploratória de dados até a criação de uma 
+interface interativa para exibir recomendações musicais.
+O projeto faz parte de uma iniciativa de inovação orientada por dados, e o seu papel será desenvolver e integrar componentes que tornem o sistema 
+inteligente, reprodutível e acessível.
+O objetivo do projeto é desenvolver um sistema de recomendação de músicas personalizadas que analise o comportamento dos usuários, 
+identifique padrões de reprodução e sugira novas faixas com base em similaridades entre perfis.
+Ao longo do projeto, você explorará o dataset, construirá e avaliará o modelo com Scikit-learn, gerenciará experimentos no MLFlow com armazenamento 
+em SQLite e criará uma interface interativa no Gradio para exibir as recomendações.
+Passo1:
+Preparando o ambiente e dataset
+Para este projeto, recomendamos o uso do Google Colab, que já vem configurado com a maioria das bibliotecas necessárias. Caso prefira usar outro 
+ambiente, como VS Code ou Jupyter, garanta que as dependências estejam instaladas corretamente. As principais bibliotecas utilizadas serão pandas, 
+scikit-learn, mlflow, transformers, gradio e sqlite.
+No Colab, você pode começar preparando o ambiente com o seguinte comando e importações:
+Em um ambiente como o Colab, você pode começar importando a ferramenta que já conhece: a função pipeline.
+Copiar
+# Instalação das dependências (caso necessário)
+!pip install pandas scikit-learn mlflow transformers gradio sqlite
+# Importações iniciais
+import pandas as pd
+from sklearn.model_selection import train_test_split
+import mlflow
+import gradio as gr
+from transformers import pipeline
+Certifique-se de ter o arquivo user_data.csv disponível no diretório do notebook, pois ele será utilizado nas próximas etapas para a análise e 
+o treinamento do modelo.
+Caso ainda não o tenha, execute a célula abaixo para criá-lo automaticamente:
+Copiar
+# Criação do arquivo user_data.csv
+data = """user_id,song_id,play_count,last_played
+1,101,5,2023-10-01
+1,102,3,2023-10-02
+1,103,2,2023-10-03
+2,101,4,2023-10-01
+2,104,6,2023-10-02
+2,105,1,2023-10-03
+3,106,7,2023-10-01
+3,107,3,2023-10-02
+3,108,2,2023-10-03
+1,104,6,2023-10-03
+2,101,7,2023-10-03
+3,103,3,2023-10-01
+3,104,4,2023-10-02
+1,106,4,2023-10-02
+2,104,2,2023-10-03
+3,105,1,2023-10-03
+"""
+with open("user_data.csv", "w") as f:
+    f.write(data)
+print("Arquivo user_data.csv criado com sucesso!")
+Passo2:
+Etapa #1 - Análise Exploratória de Dados
+Antes de iniciar o desenvolvimento do modelo, é essencial compreender o comportamento dos usuários e o padrão de reprodução das músicas. 
+Nesta etapa, você explorará o conjunto de dados para identificar tendências, descobrir quais músicas são mais ouvidas e como os usuários interagem 
+com a plataforma. Essa análise exploratória ajudará a fundamentar a criação do sistema de recomendação.
+Desafio:
+Carregue o user_data.csv com pandas.read_csv e converta a coluna last_played para datetime.
+Verifique valores ausentes e duplicatas; se existirem, trate-os (excluir duplicatas e/ou preencher ausentes conforme o caso).
+Gere estatísticas descritivas de play_count e distribuições por usuário (soma por user_id) e por música (soma por song_id).
+Liste as Top 5 músicas por total de reproduções e os Top 5 usuários por volume de plays.
+Crie uma tabela dinâmica (pivot) no formato user_id × song_id com valores de play_count (faltantes = 0).
+(Opcional) Plote um histograma simples de play_count para inspecionar caudas e outliers.
+Passo3:
+Etapa #2 - Construção do Modelo de Recomendação
+Antes de colocar a interface no ar, precisamos transformar os insights da EDA em recomendações concretas. Nesta etapa, você vai treinar 
+um "recomendador" simples usando similaridade entre itens para sugerir músicas a partir do histórico de reprodução.
+Desafio:
+Reuse a matriz user_id × song_id da etapa anterior como base de interações.
+Normalize os vetores de itens ou usuários para reduzir o efeito de volume de plays (ex.: normalização L2).
+Treine um modelo item based com NearestNeighbors do Scikit-learn usando métrica de cosine.
+Implemente uma função recomendar_para_usuario(user_id, k) que:
+Identifica as músicas já ouvidas;
+Encontra vizinhos similares para cada música do usuário;
+Retorna as Top k novas músicas não ouvidas, ordenadas pela soma das similaridades.
+Separe uma validação simples por usuário: oculte 1 música com maior play_count e avalie se ela aparece no Top k (Hit Rate).
+Calcule métricas básicas: Hit Rate@k e, se desejar, Precision@k.
+Passo4:
+Etapa #3 - Integração com MLflow
+Agora vamos tornar o experimento reprodutível e comparável: registre hiperparâmetros, métricas e artefatos no MLflow usando SQLite como 
+backend store. Assim, você consegue comparar execuções e escolher a melhor configuração.
+Desafio:
+Configure o MLflow com SQLite e defina um experimento (ex.: "playcatch-recsys").
+Envolva o treinamento/validação da Etapa 2 em uma função que recebe n_neighbors, k e norm, treina o KNN item-based e calcula HitRate@k.
+Dentro de mlflow.start_run(), logue: parâmetros, hit_rate_at_k, além de artefatos úteis (ex.: CSV de músicas mais populares, shape da matriz, 
+amostra de recomendações).
+Salve o modelo com mlflow.sklearn.log_model(knn, "model") e anexe mapeamentos auxiliares (ex.: song_to_idx.json).
+Rode múltiplas execuções variando hiperparâmetros e compare no MLflow UI (opcional).
+Repare que, ao registrar seus experimentos no MLflow, você cria um histórico completo de parâmetros, métricas e versões de modelo. Assim, 
+fica mais simples comparar execuções, compreender o impacto dos hiperparâmetros e garantir que seus resultados possam ser reproduzidos no futuro.
+Passo5:
+Pontos de revisão
+Antes de finalizar, revise se todas as partes do seu projeto estão funcionando corretamente e se o fluxo completo está coerente. Essa etapa ajuda 
+a consolidar o aprendizado e garantir que o sistema de recomendação esteja bem estruturado.
+Checklist de revisão:
+O dataset foi corretamente carregado, tratado e explorado.
+A matriz user_id × song_id foi gerada sem valores ausentes.
+O modelo de recomendação retorna resultados coerentes para diferentes usuários.
+As métricas foram registradas no MLflow e podem ser comparadas entre execuções.
+A interface Gradio exibe as recomendações corretamente e responde a novas entradas.
+Repare que este é o momento ideal para fazer pequenos ajustes, melhorar a clareza do código e validar se cada componente do pipeline cumpre 
+o papel esperado dentro do projeto.
+Passo6:
+Encerramento
+Parabéns por chegar até aqui! ��
+Você desenvolveu um sistema completo de recomendação de músicas, passando por todas as etapas essenciais de um projeto de inteligência artificial, 
+desde a análise exploratória e modelagem até o rastreamento de experimentos e criação de uma interface interativa.
+Este projeto mostrou como integração e reprodutibilidade são fundamentais em aplicações reais de IA. Ao combinar ferramentas como Pandas, 
+Scikit-learn, MLflow e Gradio, você experimentou um fluxo de trabalho que reflete o que é utilizado em ambientes profissionais.
+Repare que cada parte do projeto contribuiu para uma habilidade-chave:
+Pandas → análise e preparação de dados;
+Scikit-learn → construção e avaliação do modelo;
+MLflow → rastreamento e versionamento de experimentos;
+Gradio → disponibilização de uma interface amigável para o usuário final.
+
+
+aluraCarreiraEspecialistaIANivel3
+Especialista em IA Nivel 3
+
+Prompt1:
+Analise profundamente o desafio a seguir e verifique quais são os conhecimentos necessários para realização do mesmo inclusive sua 
+persona e os softwares necessários para serem instalados. 
+Gere um relatório executivo .docx com as características do anexo colocando este relatório no diretório Analise que vc criará com 
+tais informações bem como um relatório equivalente .md também no diretório Analise. 
+Neste momento vc não executará nada só fará um estudo detalhado do desafio e irá gerar as informações nos arquivos de relatório com detalhes. 
+Analise também com profundidade o arquivo em anexo.
+Antes de levantar tais informações faça 3 análises da sua resposta bem como 3 revisões de sua resposta para aumentar a 
+qualidade da mesma e evitar não colocar algum detalhe relevante. A seguir o desafio:
+
+
+
+Faça 3 análises críticas de seu levantamento bem como 3 revisões do mesmo para aumentar a qualidade do levantamento e 
+evitar não colocar algum detalhe relevante. Crie também os relatórios do levantamento .docx e .md no diretório Analise criado por vc. 
+O espírito e as características são as mesmas dos relatórios em anexo incluindo o passo a passo da análise, os testes sugeridos bem 
+como o resultado dos mesmos e tudo mais que seja necessário para provar e também as evidências que seu levantamento foi realizada 
+com sucesso. Bem como a tabela de cada critério de aceite com o status "feito". 
+
+
+
+
+Blz então agora execute a implementação do desafio: 
+
+Ao final faça 3 análises da sua implementação bem como 3 revisões de sua da mesma para aumentar a qualidade da mesma 
+e evitar não colocar algum detalhe relevante. Crie também os relatórios de implementação .docx e .md no Diretório Analise. 
+O espírito e as características são as mesmas dos relatórios anteriores incluindo o passo a passo da implementação, apresentando;
+os testes bem como o resultado dos mesmos e tudo mais que seja necessário para provar inclusive as evidências que a implementação
+foi realizada com sucesso. Bem como a tabela de cada critério de aceite com o status "feito".
+
+
+
+u
+
+
+
+
+
+
+
+
+
+

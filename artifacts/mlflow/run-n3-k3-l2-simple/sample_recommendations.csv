@@ -1,0 +1,16 @@
+rank,song_id,score,origin,user_id
+1,105,0.9777266949632247,personalizado,1
+2,118,0.9768621370942976,personalizado,1
+3,114,0.9751693996065661,personalizado,1
+1,118,0.9870747120447589,personalizado,2
+2,107,0.9845753327452209,personalizado,2
+3,110,0.83756624822182,personalizado,2
+1,118,0.9870747120447589,personalizado,3
+2,114,0.9751693996065661,personalizado,3
+3,113,0.9722712247858867,personalizado,3
+1,106,36.0,popularidade_sem_candidatos,4
+2,103,33.0,popularidade_sem_candidatos,4
+3,102,32.0,popularidade_sem_candidatos,4
+1,101,59.0,popularidade_sem_candidatos,5
+2,104,51.0,popularidade_sem_candidatos,5
+3,102,32.0,popularidade_sem_candidatos,5

@@ -1,0 +1,23 @@
+{
+  "raw_rows": 79,
+  "clean_rows": 79,
+  "exact_duplicates_removed": 0,
+  "rows_in_repeated_pairs": 4,
+  "missing_values": 0,
+  "dataset_sha256": "a3727f7087fa3c902d4d5f80dfc15c1a76bb0b3a53a16c57b399d2ee196c0d63",
+  "users": 13,
+  "songs": 18,
+  "unique_pairs": 77,
+  "matrix_shape": [
+    13,
+    18
+  ],
+  "matrix_density": 0.32905982905982906,
+  "total_plays": 465,
+  "users_evaluated": 13,
+  "hits": 6,
+  "hit_rate_at_k": 0.46153846153846156,
+  "precision_at_k": 0.09230769230769231,
+  "mrr_at_k": 0.3384615384615385,
+  "catalog_coverage": 0.8333333333333334
+}

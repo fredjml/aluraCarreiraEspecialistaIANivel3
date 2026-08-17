@@ -1,0 +1,111 @@
+{
+  "original": {
+    "raw_rows": 16,
+    "clean_rows": 16,
+    "exact_duplicates_removed": 0,
+    "rows_in_repeated_pairs": 4,
+    "missing_values": 0,
+    "dataset_sha256": "a6bcef334c7fb0c871f8daaf2bea45fae4642986bc7393b1b676c425de610878",
+    "users": 3,
+    "songs": 8,
+    "unique_pairs": 14,
+    "matrix_shape": [
+      3,
+      8
+    ],
+    "matrix_density": 0.5833333333333334,
+    "total_plays": 60,
+    "users_evaluated": 3,
+    "hits": 2,
+    "hit_rate_at_k": 0.6666666666666666,
+    "precision_at_k": 0.13333333333333333,
+    "mrr_at_k": 0.15,
+    "catalog_coverage": 1.0
+  },
+  "expanded_runs": [
+    {
+      "run_id": "39228a3ee3b94562943ad44e24cdfb8b",
+      "n_neighbors": 3,
+      "k": 3,
+      "norm": "l2",
+      "score_policy": "simple",
+      "raw_rows": 79,
+      "clean_rows": 79,
+      "exact_duplicates_removed": 0,
+      "rows_in_repeated_pairs": 4,
+      "missing_values": 0,
+      "dataset_sha256": "a3727f7087fa3c902d4d5f80dfc15c1a76bb0b3a53a16c57b399d2ee196c0d63",
+      "users": 13,
+      "songs": 18,
+      "unique_pairs": 77,
+      "matrix_shape": [
+        13,
+        18
+      ],
+      "matrix_density": 0.32905982905982906,
+      "total_plays": 465,
+      "users_evaluated": 13,
+      "hits": 5,
+      "hit_rate_at_k": 0.38461538461538464,
+      "precision_at_k": 0.1282051282051282,
+      "mrr_at_k": 0.3333333333333333,
+      "catalog_coverage": 0.5
+    },
+    {
+      "run_id": "21ebd2be0c7f47a68ee898f7285254e4",
+      "n_neighbors": 5,
+      "k": 5,
+      "norm": "l2",
+      "score_policy": "simple",
+      "raw_rows": 79,
+      "clean_rows": 79,
+      "exact_duplicates_removed": 0,
+      "rows_in_repeated_pairs": 4,
+      "missing_values": 0,
+      "dataset_sha256": "a3727f7087fa3c902d4d5f80dfc15c1a76bb0b3a53a16c57b399d2ee196c0d63",
+      "users": 13,
+      "songs": 18,
+      "unique_pairs": 77,
+      "matrix_shape": [
+        13,
+        18
+      ],
+      "matrix_density": 0.32905982905982906,
+      "total_plays": 465,
+      "users_evaluated": 13,
+      "hits": 6,
+      "hit_rate_at_k": 0.46153846153846156,
+      "precision_at_k": 0.09230769230769231,
+      "mrr_at_k": 0.3384615384615385,
+      "catalog_coverage": 0.8333333333333334
+    },
+    {
+      "run_id": "a643c1b137a7444ea60c43ae46d06a01",
+      "n_neighbors": 7,
+      "k": 5,
+      "norm": "l1",
+      "score_policy": "weighted_log1p",
+      "raw_rows": 79,
+      "clean_rows": 79,
+      "exact_duplicates_removed": 0,
+      "rows_in_repeated_pairs": 4,
+      "missing_values": 0,
+      "dataset_sha256": "a3727f7087fa3c902d4d5f80dfc15c1a76bb0b3a53a16c57b399d2ee196c0d63",
+      "users": 13,
+      "songs": 18,
+      "unique_pairs": 77,
+      "matrix_shape": [
+        13,
+        18
+      ],
+      "matrix_density": 0.32905982905982906,
+      "total_plays": 465,
+      "users_evaluated": 13,
+      "hits": 13,
+      "hit_rate_at_k": 1.0,
+      "precision_at_k": 0.2,
+      "mrr_at_k": 0.8769230769230769,
+      "catalog_coverage": 0.8333333333333334
+    }
+  ]
+}

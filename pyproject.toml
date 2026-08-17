@@ -1,0 +1,19 @@
+[project]
+name = "playcatch-recsys"
+version = "1.0.0"
+description = "POC reproduzível de recomendação musical item-based"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+  "pandas>=2.2,<3",
+  "scikit-learn>=1.5,<2",
+  "mlflow>=3,<4",
+  "gradio>=5,<7",
+  "matplotlib>=3.9,<4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9"]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
+testpaths = ["tests"]

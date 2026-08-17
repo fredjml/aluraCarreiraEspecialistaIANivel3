@@ -1,0 +1,17 @@
+user_id,song_id,play_count,last_played,data_origin
+1,101,5,2023-10-01,original
+1,102,3,2023-10-02,original
+1,103,2,2023-10-03,original
+2,101,4,2023-10-01,original
+2,104,6,2023-10-02,original
+2,105,1,2023-10-03,original
+3,106,7,2023-10-01,original
+3,107,3,2023-10-02,original
+3,108,2,2023-10-03,original
+1,104,6,2023-10-03,original
+2,101,7,2023-10-03,original
+3,103,3,2023-10-01,original
+3,104,4,2023-10-02,original
+1,106,4,2023-10-02,original
+2,104,2,2023-10-03,original
+3,105,1,2023-10-03,original
